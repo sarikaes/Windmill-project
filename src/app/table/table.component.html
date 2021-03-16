@@ -1,0 +1,52 @@
+<div class="filter">
+    <mat-form-field appearance="fill">
+        <mat-label>Farm</mat-label>
+        <mat-select multiple [(value)]="filterFarmList" (openedChange)="onToggleFilter($event)"> 
+          <mat-option (click)="resetFarm()">Reset</mat-option>
+          <mat-option *ngFor="let farm of farmList" [value]="farm">
+            {{farm}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <mat-form-field appearance="fill">
+        <mat-label>Last Inspection</mat-label>
+        <mat-select  multiple [(value)]="filterInspectionDateList" (openedChange)="onToggleFilter($event)">
+          <mat-option (click)="resetInspection()">Reset</mat-option>
+          <mat-option *ngFor="let inspectionDate of inspectionDateList" [value]="inspectionDate">
+            {{inspectionDate}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <mat-form-field appearance="fill">
+        <mat-label>WTG ID</mat-label>
+        <mat-select  multiple [(value)]="filterWtgIdList" (openedChange)="onToggleFilter($event)">
+          <mat-option (click)="resetWtgId()">Reset</mat-option>
+          <mat-option *ngFor="let  wtgId of wtgIdList" [value]="wtgId">
+            {{wtgId}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <mat-form-field appearance="fill">
+        <mat-label>WTG Category</mat-label>
+        <mat-select multiple [(value)]="filterWtgCatList" (openedChange)="onToggleFilter($event)">
+          <mat-option (click)="resetWtgCat()">Reset</mat-option>
+          <mat-option *ngFor="let wtgCatObj of wtgCatList" [value]="wtgCatObj.value">
+            <div fxLayoutAlign="start center" fxLayoutGap="10px">
+              <img [src]="wtgCatObj.imgSrc" />
+              <div>{{ wtgCatObj.label }}</div>
+            </div>
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+</div>
+
+<ag-grid-angular
+    class="ag-theme-alpine"
+    [rowData]="rowDataList"
+    [columnDefs]="columnDefs"
+    (rowClicked)="onRowClick($event.data)"
+>
+</ag-grid-angular>

@@ -1,0 +1,52 @@
+<div class="details">
+  <div class="item1" fxFlex="30%" fxLayout.xs="column" *ngFor="let i of loadArray">
+    {{i.wtg_id}}
+    <div class="item2">
+      {{i.blades[0].label}}
+    </div><br><br>
+    <div class="blades">
+      S/N :- &nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; {{i.inspection_date.slice(0,4)}} <br>
+      Blade Model:{{i.blade_model}}
+    </div>
+
+    <div class="item3">
+      WTG:{{i.wtg_id}} <br>
+      Class:{{i.wtg_class}} <br>
+      Farm:{{i.farm}} <br>
+      WTG Model:{{i.wtg_model}}
+    </div><br>
+    <div class="note">
+      <img src="assets\images\notes.png">
+      Add Note
+    </div>
+  </div>
+
+  <div class="item4" fxFlex="50%" fxLayout.xs="column">
+    <div class="filter">
+      <mat-form-field appearance="fill">
+        <mat-label>WTG ID</mat-label>
+        <mat-select multiple>
+          <mat-option>Reset</mat-option>
+          <mat-option>
+            WTG id
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <mat-form-field appearance="fill">
+        <mat-label>Last Inspection</mat-label>
+        <mat-select multiple>
+          <mat-option>Reset</mat-option>
+          <mat-option>
+            inspection date
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+
+    </div>
+    <mat-card class="example-card">
+      
+      <img mat-card-image src="assets\images\dummy image.png" class="image1">
+     
+    </mat-card>
+</div>
