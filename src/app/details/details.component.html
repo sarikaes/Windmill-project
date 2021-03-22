@@ -1,11 +1,13 @@
 <div class="details">
-  <div class="item1" fxFlex="30%" fxLayout.xs="column" *ngFor="let i of loadArray">
+
+  <div class="item1" fxFlex="25%" fxLayout.xs="row" *ngFor="let i of loadArray">
     {{i.wtg_id}}
     <div class="item2">
       {{i.blades[0].label}}
     </div><br><br>
     <div class="blades">
-      S/N :- &nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; {{i.inspection_date.slice(0,4)}} <br>
+      S/N :- &nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp;
+      &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;{{i.blades[0].serial_number}} <br>
       Blade Model:{{i.blade_model}}
     </div>
 
@@ -21,7 +23,7 @@
     </div>
   </div>
 
-  <div class="item4" fxFlex="50%" fxLayout.xs="column">
+  <div class="item4" fxFlex="100" fxLayout.xs="column">
     <div class="filter">
       <mat-form-field appearance="fill">
         <mat-label>WTG ID</mat-label>
@@ -41,12 +43,131 @@
             inspection date
           </mat-option>
         </mat-select>
-      </mat-form-field>
-
+      </mat-form-field> &nbsp;
+      <mat-icon style="height: 80px;">filter_list</mat-icon>
     </div>
-    <mat-card class="example-card">
-      
-      <img mat-card-image src="assets\images\dummy image.png" class="image1">
-     
-    </mat-card>
+    
+    <div class="images"  fxFlex.xs="15">
+      <div class="labelImage" >
+      <div class="img" *ngFor="let i of listA.images">
+        <img src="assets\images\{{i.URI}}" width="60px" height="70px">
+        <div fxFlex="50" fxLayout="column" fxLayoutAlign="space-around center">
+        <img [src]="getImgSrc(i.image_cat)" />
+        {{
+          "cat. " +
+            (i.image_cat.validated != null
+              ? i.image_cat.validated
+              : i.image_cat.auto)
+        }}
+    <br>
+          <img style="width: 30px;margin-left: 2px;" src="assets\images\notes.png">
+        </div>
+        
+      </div>
+     </div> 
+    </div>
+    </div> 
+    
 </div>
+<hr>
+<div class="details">
+
+  <div class="item1" fxFlex="25%" fxLayout.xs="row" *ngFor="let i of loadArray">
+    {{i.wtg_id}}
+    <div class="item2">
+      {{i.blades[1].label}}
+    </div><br><br>
+    <div class="blades">
+      S/N :- &nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp;
+      &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;{{i.blades[1].serial_number}} <br>
+      Blade Model:{{i.blade_model}}
+    </div>
+
+    <div class="item3">
+      WTG:{{i.wtg_id}} <br>
+      Class:{{i.wtg_class}} <br>
+      Farm:{{i.farm}} <br>
+      WTG Model:{{i.wtg_model}}
+    </div><br>
+    <div class="note">
+      <img src="assets\images\notes.png">
+      Add Note
+    </div>
+  </div>
+
+  <div class="item4" fxFlex="100" fxLayout.xs="column">
+    
+    <div class="images"  fxFlex.xs="15">
+      <div class="labelImage" >
+      <div class="img" *ngFor="let i of listB.images">
+        <img src="assets\images\{{i.URI}}" width="60px" height="70px">
+        <div fxFlex="50" fxLayout="column" fxLayoutAlign="space-around center">
+        <img [src]="getImgSrc(i.image_cat)" />
+        {{
+          "cat. " +
+            (i.image_cat.validated != null
+              ? i.image_cat.validated
+              : i.image_cat.auto)
+        }}
+    <br>
+          <img style="width: 30px;margin-left: 2px;" src="assets\images\notes.png">
+        </div>
+        
+      </div>
+     </div> 
+    </div>
+    </div> 
+    
+</div>
+<hr>
+<div class="details">
+
+  <div class="item1" fxFlex="25%" fxLayout.xs="row" *ngFor="let i of loadArray">
+    {{i.wtg_id}}
+    <div class="item2">
+      {{i.blades[2].label}}
+    </div><br><br>
+    <div class="blades">
+      S/N :- &nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp;
+      &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;{{i.blades[2].serial_number}} <br>
+      Blade Model:{{i.blade_model}}
+    </div>
+
+    <div class="item3">
+      WTG:{{i.wtg_id}} <br>
+      Class:{{i.wtg_class}} <br>
+      Farm:{{i.farm}} <br>
+      WTG Model:{{i.wtg_model}}
+    </div><br>
+    <div class="note">
+      <img src="assets\images\notes.png">
+      Add Note
+    </div>
+  </div>
+
+  <div class="item4" fxFlex="100" fxLayout.xs="column">
+    
+    <div class="images"  fxFlex.xs="15">
+      <div class="labelImage" >
+      <div class="img" *ngFor="let i of listC.images">
+        <img src="assets\images\{{i.URI}}" width="60px" height="70px">
+        <div fxFlex="50" fxLayout="column" fxLayoutAlign="space-around center">
+        <img [src]="getImgSrc(i.image_cat)" />
+        {{
+          "cat. " +
+            (i.image_cat.validated != null
+              ? i.image_cat.validated
+              : i.image_cat.auto)
+        }}
+    <br>
+          <img style="width: 30px;margin-left: 2px;" src="assets\images\notes.png">
+        </div>
+        
+      </div>
+     </div> 
+    </div>
+    </div> 
+    
+</div>
+   
+      

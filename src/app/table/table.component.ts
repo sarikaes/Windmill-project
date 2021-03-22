@@ -84,8 +84,8 @@ export class TableComponent implements OnInit {
   }
 
   onRowClick(data: any) {
-    console.log(data)
-    this.router.navigate(['/details', data.wtg_id, data.next_inspection.slice(0, 10)])
+    // console.log(data)
+    this.router.navigate(['/details', data.wtg_id, data.inspection_date.slice(0, 10)])
 
   }
 
@@ -259,10 +259,6 @@ export class TableComponent implements OnInit {
       },
     ];
   }
-  //  reset(){
-  //   this.rowDataList = JSON.parse(
-  //     JSON.stringify(this.windmillService.wtgsList)
-  //   );
-  // }
+ 
 
 }

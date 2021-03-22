@@ -22,7 +22,7 @@
 
 .item3{
   background-color: #0b3374;
-  width:240px;
+  width:200px;
   height: 100px;
   margin-left:10px;
   padding:10px 10px 10px;
@@ -37,12 +37,27 @@
 .notes{
  padding-left: 10px;
 }
-.example-card{
-  height:min-content;
-  width: 70px;
+.image1 {
+  margin-left:20px;
+  margin-top:10px;
+ height: 10px;
+ width:5px; 
 }
-.image1{
-  display: table;
-  height:100px;
-  width: 100px;
+.labelImage ::after{
+  content: "";
+  clear:both;
+  display:table;
+}
+.img{
+  float:left;
+  width: 20%;
+  padding: 5px;
+}
+.hr{
+  display: block;
+  height: 1px;
+  border: 0;
+  border-top: 1px solid white;
+  margin: 1em 0;
+  padding: 0;
 }

@@ -20,7 +20,7 @@
       </mat-form-field>
 
       <mat-form-field appearance="fill">
-        <mat-label>WTG ID</mat-label>
+        <mat-label>WTG ID</mat-label> 
         <mat-select  multiple [(value)]="filterWtgIdList" (openedChange)="onToggleFilter($event)">
           <mat-option (click)="resetWtgId()">Reset</mat-option>
           <mat-option *ngFor="let  wtgId of wtgIdList" [value]="wtgId">

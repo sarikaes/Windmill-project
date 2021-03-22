@@ -1,5 +1,5 @@
 export interface Wtgs {
-    wtg_id: string;
+  wtg_id: string;
   wtg_class: string;
   wtg_model: string;
   farm: string;
