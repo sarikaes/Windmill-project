@@ -37,12 +37,7 @@
 .notes{
  padding-left: 10px;
 }
-.image1 {
-  margin-left:20px;
-  margin-top:10px;
- height: 10px;
- width:5px; 
-}
+
 .labelImage ::after{
   content: "";
   clear:both;
@@ -50,9 +45,11 @@
 }
 .img{
   float:left;
-  width: 20%;
-  padding: 5px;
+  width: 25%;
+  // padding: 5px;
+  height: 110px;
 }
+
 .hr{
   display: block;
   height: 1px;
@@ -60,4 +57,19 @@
   border-top: 1px solid white;
   margin: 1em 0;
   padding: 0;
+}
+.example-container {
+  width: 100px;
+  height: 100px;
+  margin: 12px;
+}
+.example-sidenav-content {
+  display: flex;
+  height: 100%;
+  align-items: center;
+  // justify-content: center;
+}
+
+.example-sidenav {
+  padding: 20px;
 }
