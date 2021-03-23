@@ -1,4 +1,4 @@
-export const inspectionData:any=
+export const inspectionList:any=
 [
     {
       "blade_id": "BS01-A",

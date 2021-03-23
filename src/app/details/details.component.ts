@@ -5,7 +5,10 @@ import { ActivatedRoute } from '@angular/router';
 import { Inspection } from '../models/inspection.model';
 import { CatColors } from '../catColors'
 import { MatSelectChange } from '@angular/material/select';
-import { Router } from '@angular/router'
+import { Router } from '@angular/router';
+import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
+import { Observable } from 'rxjs';
+import { map, shareReplay } from 'rxjs/operators';
 
 @Component({
   selector: 'app-details',
@@ -13,7 +16,13 @@ import { Router } from '@angular/router'
   styleUrls: ['./details.component.scss']
 })
 export class DetailsComponent implements OnInit {
-  constructor(private windmillService: WindmillService,
+  isHandset$: Observable<boolean> = this.breakpointObserver.observe(Breakpoints.Handset)
+  .pipe(
+    map(result => result.matches),
+    shareReplay()
+  );
+
+  constructor(private breakpointObserver: BreakpointObserver,private windmillService: WindmillService,
     private activatedRoute: ActivatedRoute,
     private router: Router
   ) {
@@ -42,7 +51,7 @@ export class DetailsComponent implements OnInit {
   rowDataList: Wtgs[] = JSON.parse(
     JSON.stringify(this.windmillService.wtgsList)
   );
-  inspectionDataList: Inspection[] = JSON.parse(JSON.stringify(this.windmillService.inspectionData))
+  inspectionDataList: Inspection[] = JSON.parse(JSON.stringify(this.windmillService.inspectionList))
 
   onLoadRow() {
     this.rowDataList.forEach((element) => {
