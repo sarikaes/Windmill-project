@@ -1,7 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { Wtgs } from '../models/wtgs.model'
 import { WindmillService } from '../service/windmill.service';
-import { Router } from '@angular/router'
+import { Router } from '@angular/router';
+import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
+import { Observable } from 'rxjs';
+import { map, shareReplay } from 'rxjs/operators';
 
 @Component({
   selector: 'app-table',
@@ -9,6 +12,12 @@ import { Router } from '@angular/router'
   styleUrls: ['./table.component.scss']
 })
 export class TableComponent implements OnInit {
+  isHandset$: Observable<boolean> = this.breakpointObserver.observe(Breakpoints.Handset)
+  .pipe(
+    map(result => result.matches),
+    shareReplay()
+  );
+
   columnDefs: any[] = [];
   rowDataList: Wtgs[] = JSON.parse(
     JSON.stringify(this.windmillService.wtgsList)
@@ -23,6 +32,7 @@ export class TableComponent implements OnInit {
   filterWtgCatList: string[] = [];
 
   constructor(
+    private breakpointObserver: BreakpointObserver,
     private windmillService: WindmillService,
     private router: Router
   ) { }
