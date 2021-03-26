@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { WindmillService } from '../service/windmill.service';
-import { Wtgs } from '../models/wtgs.model';
+import { Note, Wtgs } from '../models/wtgs.model';
 import { ActivatedRoute } from '@angular/router';
 import { Inspection } from '../models/inspection.model';
 import { CatColors } from '../catColors'
@@ -9,6 +9,10 @@ import { Router } from '@angular/router';
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import { Observable } from 'rxjs';
 import { map, shareReplay } from 'rxjs/operators';
+import { MatDialog } from '@angular/material/dialog';
+import { ComponentType } from '@angular/cdk/portal';
+import {FormGroup , FormControl,Validators} from '@angular/forms';
+
 
 @Component({
   selector: 'app-details',
@@ -22,9 +26,10 @@ export class DetailsComponent implements OnInit {
     shareReplay()
   );
 
-  constructor(private breakpointObserver: BreakpointObserver,private windmillService: WindmillService,
+  constructor(public dialog: MatDialog,private breakpointObserver: BreakpointObserver,private windmillService: WindmillService,
     private activatedRoute: ActivatedRoute,
     private router: Router
+
   ) {
   }
 
@@ -37,6 +42,18 @@ export class DetailsComponent implements OnInit {
   wtg_dateList: string[] = [];
   filterId: string = "";
   filterDate: string = "";
+  dateSelected:string=""
+  idselected:string=""
+  imageIndex:number=1
+  sidenavOpen:boolean=false;
+  notes:Note[]=[];
+  JSON=JSON;
+  index:number=0;
+  editIndex:number=0;
+  dialogeForm=new FormGroup({
+  note:new FormControl('',Validators.required)
+})
+
 
   ngOnInit(): void {
     this.activatedRoute.params.subscribe((params) => {
@@ -52,6 +69,30 @@ export class DetailsComponent implements OnInit {
     JSON.stringify(this.windmillService.wtgsList)
   );
   inspectionDataList: Inspection[] = JSON.parse(JSON.stringify(this.windmillService.inspectionList))
+
+  dialogeBox(templateRef: any) {
+    let dialogRef = this.dialog.open(templateRef, {
+         width: '500px',
+         height:'250px'
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+        console.log('The dialog was closed');
+ 
+    });
+}
+dialogeBoxEdit(templateRef: any) {
+  let dialogRef = this.dialog.open(templateRef, {
+       width: '500px',
+       height:'250px'
+  });
+
+  dialogRef.afterClosed().subscribe(result => {
+      console.log('The dialog was closed');
+
+  });
+}
+
 
   onLoadRow() {
     this.rowDataList.forEach((element) => {
@@ -119,4 +160,56 @@ export class DetailsComponent implements OnInit {
     this.listB = ''
     this.listC = ''
   }
+  bladeClick(notes:Note[],label:string){
+    this.sidenavOpen=true;
+    this.notes=notes;
+    this.idselected=label;
+    
+
+  }
+  imageClick(date:string,id:string,j:number,notes:Note[]){
+    this.dateSelected=date
+  this.idselected=id
+  this.imageIndex=j+1
+  this.sidenavOpen=true;
+  this.notes=notes;
+
+  }
+  save(){
+    let date=new Date().getTime()
+    let note:Note={text:this.dialogeForm.controls["note"].value,date:date}
+    this.notes.push(note)
+    this.dialogeForm.reset()
+  }
+  cancel(){
+    (document.getElementById('notes') as HTMLInputElement).value=''
+    this.dialogeForm.reset()
+  }
+  
+  edit(editIndex:number){
+    this.editIndex=editIndex
+    console.log(this.notes[editIndex].text);
+  this.dialogeForm.patchValue({
+  note:this.notes[editIndex].text,
+    
+})
+this.dialogeForm.reset()
+
+}
+  editNote(){
+    this.notes[this.editIndex].text=this.dialogeForm.controls["note"].value
+    this.dialogeForm.reset();
+    (document.getElementById('notes')as HTMLInputElement).value='';
+  }
+
+  delete(index:number){
+    this.index=index
+   }
+
+  deleteNote(){
+    if(this.index>-1){
+      this.notes.splice(this.index,1)
+    }
+  }
+  
 }

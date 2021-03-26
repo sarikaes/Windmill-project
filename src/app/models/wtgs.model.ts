@@ -13,7 +13,7 @@ export interface Wtgs {
 
 export interface Note {
   text: string;
-  date: Date;
+  date: number;
 }
 
 export interface Category {

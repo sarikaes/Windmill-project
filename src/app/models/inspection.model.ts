@@ -8,7 +8,7 @@ export interface Inspection {
 }
 export interface Note {
     text: string;
-    date: Date;
+    date: number;
 }
 export interface Image {
     image_cat: string;

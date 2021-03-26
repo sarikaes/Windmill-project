@@ -55,18 +55,23 @@
  padding-left: 10px;
 }
 
-.labelImage ::after{
+.images ::after{
   content: "";
   clear:both;
   display:table;
 }
 .img{
   float:left;
-  width: 25%;
-  // padding: 5px;
-  height: 110px;
+  width: 20%;
+  padding: 25px;
+  
+  // height: 130px;
 }
-
+img{
+  max-width: 70%;
+  height: auto;
+  border-radius: 3px;
+}
 .hr{
   display: block;
   height: 1px;
@@ -89,4 +94,24 @@
 
 .example-sidenav {
   padding: 20px;
+}
+.button{
+  margin-left: 150px;
+  margin-top: 11px;
+}
+.input{
+  width:98%;
+  height:70px;
+  border-radius: 5px;
+}
+.addnote{
+  margin-left: 150px;
+  color: #0b3374;
+  margin-top: 10px;
+}
+mat-icon{
+  cursor: pointer;
+}
+.bladenote{
+  padding-top: 15px;
 }
