@@ -5,30 +5,64 @@
 .sidenav {
   width: 350px;
 }
-
-.sidenav .mat-toolbar {
-  background: inherit;
-}
-
-.mat-toolbar.mat-primary {
+.mat-toolbar{
   position: sticky;
   top: 0;
   z-index: 1;
+  background-color:rgb(238, 232, 232);
+}
+.add{
+  background-color: #d7e2de;
+   color: rgb(15, 14, 14);
+   font-size: 20px;
+    height: 150px
+}
+.close{
+  margin-left:150px;
+  
+}
+.button{
+  margin-left: 150px;
+  margin-top: 11px;
+}
+.addnote{
+  margin-left: 150px;
+  color: #0b3374;
+  margin-top: 10px;
+}
+.noteDate{
+  font-family:'Franklin Gothic Medium', 'Arial Narrow';
+  font-size:15px;
+  margin-left: 10px;
+  color: #2c2c30;
+}
+.noteText{
+  margin-left: 10px;
+}
+.deleteButton{
+  margin-left: 50px;
+}
+.addClose{
+  margin-left:300px;
+}
+.noteSave{
+  margin-left: 300px;
 }
 .details {
   margin-top: 20px;
 }
 
-.item1 {
-  margin-left:90px;
+.bladeDetails {
+  margin-left:50px;
   font-size:larger;
   font-family:Arial, Helvetica, sans-serif;
+  color: #0b3374;
 }
 
-.item2 {
-  margin-left:20px;
-  margin-top: 70px;
-  font-size: 50px;
+.label {
+  margin-left:10px;
+  margin-top: 50px;
+  font-size: 60px;
   font-style:normal;
   color: #0b3374;
 }
@@ -37,11 +71,11 @@
   font-size:small;
 }
 
-.item3{
+.wtgDetails{
   background-color: #0b3374;
   width:200px;
   height: 100px;
-  margin-left:10px;
+  margin-left:8px;
   padding:10px 10px 10px;
   margin-top: 40px;
   font-size:medium;
@@ -53,24 +87,38 @@
 
 .notes{
  padding-left: 10px;
+ padding-top: 1px;
+}
+.bladenote{
+  padding-top: 15px;
 }
 
+.filter{
+  margin-left: 20px;
+}
+.compare{
+  margin-left:400px;
+  background-color: rgb(52, 177, 52);
+  color: white;
+}
 .images ::after{
   content: "";
   clear:both;
   display:table;
 }
-.img{
+.image{
   float:left;
   width: 20%;
-  padding: 25px;
+  padding: 15px 15px 15px;
+  
   
   // height: 130px;
 }
 img{
-  max-width: 70%;
+  max-width: 40%;
   height: auto;
   border-radius: 3px;
+ 
 }
 .hr{
   display: block;
@@ -79,6 +127,9 @@ img{
   border-top: 1px solid white;
   margin: 1em 0;
   padding: 0;
+}
+.notelength{
+  padding-top: 0px;
 }
 .example-container {
   width: 100px;
@@ -95,23 +146,14 @@ img{
 .example-sidenav {
   padding: 20px;
 }
-.button{
-  margin-left: 150px;
-  margin-top: 11px;
-}
+
 .input{
   width:98%;
   height:70px;
   border-radius: 5px;
 }
-.addnote{
-  margin-left: 150px;
-  color: #0b3374;
-  margin-top: 10px;
-}
+
 mat-icon{
   cursor: pointer;
-}
-.bladenote{
-  padding-top: 15px;
+  
 }

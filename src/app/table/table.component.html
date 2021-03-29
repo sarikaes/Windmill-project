@@ -1,82 +1,80 @@
 <mat-sidenav-container class="sidenav-container">
-  <mat-sidenav #drawer class="sidenav" fixedInViewport
-      [attr.role]="(isHandset$ | async) ? 'dialog' : 'navigation'"
-      [mode]="(isHandset$ | async) ? 'over' : 'side'"
-      [opened]="(isHandset$ | async) === false"><br>
-    <a href="#"><mat-icon aria-label="Side nav toggle icon" style="margin-left: 30px;">mail</mat-icon></a>
+  <mat-sidenav #drawer class="sidenav" fixedInViewport [attr.role]="(isHandset$ | async) ? 'dialog' : 'navigation'"
+    [mode]="(isHandset$ | async) ? 'over' : 'side'" [opened]="(isHandset$ | async) === false"><br>
+    <a href="#">
+      <mat-icon aria-label="Side nav toggle icon" style="margin-left: 30px;">mail</mat-icon>
+    </a>
     <mat-nav-list>
-      <a mat-list-item href="#"><mat-icon> dashboard </mat-icon></a>
-      <a mat-list-item href="#"><mat-icon>favorite</mat-icon></a>
-      <a mat-list-item href="#"><mat-icon>description</mat-icon></a>
+      <a mat-list-item href="#">
+        <mat-icon> dashboard </mat-icon>
+      </a>
+      <a mat-list-item href="#">
+        <mat-icon>favorite</mat-icon>
+      </a>
+      <a mat-list-item href="#">
+        <mat-icon>description</mat-icon>
+      </a>
     </mat-nav-list>
   </mat-sidenav>
   <mat-sidenav-content>
     <mat-toolbar style="background-color:ivory;width:10px;height: 0px;">
-      <button
-        type="button"
-        aria-label="Toggle sidenav"
-        mat-icon-button
-        (click)="drawer.toggle()"
+      <button type="button" aria-label="Toggle sidenav" mat-icon-button (click)="drawer.toggle()"
         *ngIf="isHandset$ | async">
-         <mat-icon aria-label="Side nav toggle icon"></mat-icon> 
+        <mat-icon aria-label="Side nav toggle icon"></mat-icon>
       </button>
-  </mat-toolbar>
-  <button mat-icon-button class="example-icon" aria-label="Example icon-button with menu icon">
-    <mat-icon>menu</mat-icon>
-  </button>
+    </mat-toolbar>
+    <button mat-icon-button class="example-icon" aria-label="Example icon-button with menu icon">
+      <mat-icon>menu</mat-icon>
+    </button>
 
-</mat-sidenav-content>
+  </mat-sidenav-content>
 </mat-sidenav-container>
 
 <div class="filter">
-    <mat-form-field appearance="fill">
-        <mat-label>Farm</mat-label>
-        <mat-select multiple [(value)]="filterFarmList" (openedChange)="onToggleFilter($event)"> 
-          <mat-option (click)="resetFarm()">Reset</mat-option>
-          <mat-option *ngFor="let farm of farmList" [value]="farm">
-            {{farm}}
-          </mat-option>
-        </mat-select>
-      </mat-form-field>
+  <mat-form-field appearance="fill">
+    <mat-label>Farm</mat-label>
+    <mat-select multiple [(value)]="filterFarmList" (openedChange)="onToggleFilter($event)">
+      <mat-option (click)="resetFarm()">Reset</mat-option>
+      <mat-option *ngFor="let farm of farmList" [value]="farm">
+        {{farm}}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
 
-      <mat-form-field appearance="fill">
-        <mat-label>Last Inspection</mat-label>
-        <mat-select  multiple [(value)]="filterInspectionDateList" (openedChange)="onToggleFilter($event)">
-          <mat-option (click)="resetInspection()">Reset</mat-option>
-          <mat-option *ngFor="let inspectionDate of inspectionDateList" [value]="inspectionDate">
-            {{inspectionDate}}
-          </mat-option>
-        </mat-select>
-      </mat-form-field>
+  <mat-form-field appearance="fill">
+    <mat-label>Last Inspection</mat-label>
+    <mat-select multiple [(value)]="filterInspectionDateList" (openedChange)="onToggleFilter($event)">
+      <mat-option (click)="resetInspection()">Reset</mat-option>
+      <mat-option *ngFor="let inspectionDate of inspectionDateList" [value]="inspectionDate">
+        {{inspectionDate}}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
 
-      <mat-form-field appearance="fill">
-        <mat-label>WTG ID</mat-label> 
-        <mat-select  multiple [(value)]="filterWtgIdList" (openedChange)="onToggleFilter($event)">
-          <mat-option (click)="resetWtgId()">Reset</mat-option>
-          <mat-option *ngFor="let  wtgId of wtgIdList" [value]="wtgId">
-            {{wtgId}}
-          </mat-option>
-        </mat-select>
-      </mat-form-field>
+  <mat-form-field appearance="fill">
+    <mat-label>WTG ID</mat-label>
+    <mat-select multiple [(value)]="filterWtgIdList" (openedChange)="onToggleFilter($event)">
+      <mat-option (click)="resetWtgId()">Reset</mat-option>
+      <mat-option *ngFor="let  wtgId of wtgIdList" [value]="wtgId">
+        {{wtgId}}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
 
-      <mat-form-field appearance="fill">
-        <mat-label>WTG Category</mat-label>
-        <mat-select multiple [(value)]="filterWtgCatList" (openedChange)="onToggleFilter($event)">
-          <mat-option (click)="resetWtgCat()">Reset</mat-option>
-          <mat-option *ngFor="let wtgCatObj of wtgCatList" [value]="wtgCatObj.value">
-            <div fxLayoutAlign="start center" fxLayoutGap="10px">
-              <img [src]="wtgCatObj.imgSrc" />
-              <div>{{ wtgCatObj.label }}</div>
-            </div>
-          </mat-option>
-        </mat-select>
-      </mat-form-field>
+  <mat-form-field appearance="fill">
+    <mat-label>WTG Category</mat-label>
+    <mat-select multiple [(value)]="filterWtgCatList" (openedChange)="onToggleFilter($event)">
+      <mat-option (click)="resetWtgCat()">Reset</mat-option>
+      <mat-option *ngFor="let wtgCatObj of wtgCatList" [value]="wtgCatObj.value">
+        <div fxLayoutAlign="start center" fxLayoutGap="10px">
+          <img [src]="wtgCatObj.imgSrc" />
+          <div>{{ wtgCatObj.label }}</div>
+        </div>
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
 </div>
 
-<ag-grid-angular
-    class="ag-theme-alpine"
-    [rowData]="rowDataList"
-    [columnDefs]="columnDefs"
-    (rowClicked)="onRowClick($event.data)"
->
+<ag-grid-angular class="ag-theme-alpine" [rowData]="rowDataList" [columnDefs]="columnDefs"
+  (rowClicked)="onRowClick($event.data)">
 </ag-grid-angular>

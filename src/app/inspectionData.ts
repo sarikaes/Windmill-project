@@ -1,5 +1,5 @@
-export const inspectionList:any=
-[
+export const inspectionList: any =
+  [
     {
       "blade_id": "BS01-A",
       "inspection_date": "2019-05-25 00:00:00",
@@ -8,7 +8,7 @@ export const inspectionList:any=
       "notes": [
         {
           "text": "Note 1",
-          "date": 1614868515375 
+          "date": 1614868515375
         },
         {
           "text": "Note 2",
@@ -1180,4 +1180,3 @@ export const inspectionList:any=
       ]
     }
   ]
-  

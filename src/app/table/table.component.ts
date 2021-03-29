@@ -13,10 +13,10 @@ import { map, shareReplay } from 'rxjs/operators';
 })
 export class TableComponent implements OnInit {
   isHandset$: Observable<boolean> = this.breakpointObserver.observe(Breakpoints.Handset)
-  .pipe(
-    map(result => result.matches),
-    shareReplay()
-  );
+    .pipe(
+      map(result => result.matches),
+      shareReplay()
+    );
 
   columnDefs: any[] = [];
   rowDataList: Wtgs[] = JSON.parse(
@@ -269,6 +269,6 @@ export class TableComponent implements OnInit {
       },
     ];
   }
- 
+
 
 }
