@@ -1,8 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit} from '@angular/core';
 import { WindmillService } from '../service/windmill.service';
 import { Note, Wtgs } from '../models/wtgs.model';
 import { ActivatedRoute } from '@angular/router';
-import { Inspection } from '../models/inspection.model';
+import { Image, Inspection } from '../models/inspection.model';
 import { CatColors } from '../catColors'
 import { MatSelectChange } from '@angular/material/select';
 import { Router } from '@angular/router';
@@ -11,7 +11,7 @@ import { Observable } from 'rxjs';
 import { map, shareReplay } from 'rxjs/operators';
 import { MatDialog } from '@angular/material/dialog';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
-
+import { CompareImageComponent } from '../compare-image/compare-image.component';
 
 @Component({
   selector: 'app-details',
@@ -20,6 +20,7 @@ import { FormGroup, FormControl, Validators } from '@angular/forms';
 })
 
 export class DetailsComponent implements OnInit {
+  
   isHandset$: Observable<boolean> = this.breakpointObserver.observe(Breakpoints.Handset)
     .pipe(
       map(result => result.matches),
@@ -35,6 +36,7 @@ export class DetailsComponent implements OnInit {
 
   data: any = []
   loadArray: any = []
+  ele:any;
   listA: any;
   listB: any;
   listC: any;
@@ -50,6 +52,9 @@ export class DetailsComponent implements OnInit {
   JSON = JSON;
   index: number = 0;
   editIndex: number = 0;
+  check: boolean = false;
+  compareArray: any[] = [];
+  imageHash: string = "";
 
   dialogeForm = new FormGroup({
     note: new FormControl('', Validators.required)
@@ -64,6 +69,7 @@ export class DetailsComponent implements OnInit {
       this.filterId = this.data.id;
       this.filterDate = this.data.date;
     })
+
   }
 
   rowDataList: Wtgs[] = JSON.parse(
@@ -118,42 +124,45 @@ export class DetailsComponent implements OnInit {
     });
   }
 
-  dialogeBoxCompare(templateRef: any) {
-    let dialogRef = this.dialog.open(templateRef, {
-      width: '900px',
-      height: '450px'
+  openDialogCompare() {
+    const dialogRef = this.dialog.open(CompareImageComponent, {
+      width: '1000px',
+      height: '450px',
+      data: this.compareArray
     });
 
     dialogRef.afterClosed().subscribe(result => {
       console.log('The dialog was closed');
-
     });
   }
+
   onLoadRow() {
     this.rowDataList.forEach((element) => {
       if (this.data.id == element.wtg_id) {
         JSON.stringify(this.loadArray.push(element))
       }
-      this.inspectionDataList.forEach((ele) => {
-        if (this.data.id == ele.blade_id.slice(0, 4) && this.data.date == ele.inspection_date.slice(0, 10)) {
-          if ("A" == ele.blade_id.slice(5, 6)) {
-            this.listA = ele
-            console.log(this.listA)
-          }
-          if ("B" == ele.blade_id.slice(5, 6)) {
-            this.listB = ele
-            // console.log(this.listB)
-          }
-          if ("C" == ele.blade_id.slice(5, 6)) {
-            // console.log(ele.blade_id)
-            this.listC = ele
-            // console.log(this.listC)
-          }
+      
+      
+    })
+    this.inspectionDataList.forEach((ele) => {
+      if (this.data.id == ele.blade_id.slice(0, 4) && this.data.date == ele.inspection_date.slice(0, 10)) {
+        // console.log(ele.images)
+        if ("A" == ele.blade_id.slice(5, 6)) {
+          this.listA = ele
+          // console.log(this.listA)
         }
-      })
+        if ("B" == ele.blade_id.slice(5, 6)) {
+          this.listB = ele
+          // console.log(this.listB)
+        }
+        if ("C" == ele.blade_id.slice(5, 6)) {
+          this.listC = ele
+          // console.log(this.listC)
+        }
+      }
     })
   }
-
+  
   getImgSrc(imageCat: any): string {
     let imageSrc = '../../assets/images/blade-';
     const cat = imageCat.validated ?? imageCat.auto;
@@ -202,7 +211,6 @@ export class DetailsComponent implements OnInit {
     console.log(this.notes[editIndex].text);
     this.dialogeForm.patchValue({
       note: this.notes[editIndex].text,
-
     })
   }
 
@@ -220,6 +228,31 @@ export class DetailsComponent implements OnInit {
     if (this.index > -1) {
       this.notes.splice(this.index, 1)
     }
+  }
+
+  compareImage(image:Image) {
+    //check add/remove-check if item in list
+    //while adding max 3
+    const imageIndex = this.compareArray.findIndex((item) => {
+      return item.image_hash === image.image_hash
+    })
+    if (imageIndex == -1) {
+      //add
+      if (this.compareArray.length <= 2) {
+        this.compareArray.push(image)
+      }
+    } else {
+      //remove
+
+      this.compareArray.splice(imageIndex, 1)
+    }
+  }
+
+  imageStyle(imagehash:string): boolean {
+     const check=this.compareArray.some((item) => {
+      return item.image_hash === imagehash
+    })
+    return check
   }
 
 }

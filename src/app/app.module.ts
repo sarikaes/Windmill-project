@@ -10,6 +10,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { TableComponent } from './table/table.component';
 import { DetailsComponent } from './details/details.component';
+import { CompareImageComponent } from './compare-image/compare-image.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { LayoutModule } from '@angular/cdk/layout';
 import { MatButtonModule } from '@angular/material/button';
@@ -18,6 +19,7 @@ import { MatListModule } from '@angular/material/list';
 import {MatCardModule} from '@angular/material/card';
 import {MatGridListModule} from '@angular/material/grid-list';
 import {MatDialogModule} from '@angular/material/dialog';
+import {MatBadgeModule} from '@angular/material/badge';
 import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
@@ -25,6 +27,7 @@ import { HttpClientModule } from '@angular/common/http';
     AppComponent,
     TableComponent,
     DetailsComponent,
+    CompareImageComponent,
   ],
   imports: [
     BrowserModule,
@@ -42,6 +45,7 @@ import { HttpClientModule } from '@angular/common/http';
     MatCardModule,
     MatGridListModule,
     MatDialogModule,
+    MatBadgeModule,
     ReactiveFormsModule,
     FormsModule,
     HttpClientModule,

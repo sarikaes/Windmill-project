@@ -96,6 +96,7 @@
 .filter{
   margin-left: 20px;
 }
+
 .compare{
   margin-left:400px;
   background-color: rgb(52, 177, 52);
@@ -110,15 +111,16 @@
   float:left;
   width: 20%;
   padding: 15px 15px 15px;
-  
-  
-  // height: 130px;
 }
 img{
   max-width: 40%;
   height: auto;
   border-radius: 3px;
- 
+}
+.changestyle{
+  border:2px solid rgb(4, 4, 66);
+  border-radius: 5px;
+  padding :2px;  
 }
 .hr{
   display: block;
@@ -140,7 +142,6 @@ img{
   display: flex;
   height: 100%;
   align-items: center;
-  // justify-content: center;
 }
 
 .example-sidenav {

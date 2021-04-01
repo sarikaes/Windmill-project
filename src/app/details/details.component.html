@@ -76,7 +76,6 @@
             <button mat-raised-button mat-dialog-close color="accent" class="noteSave" (click)="editNote()"
               [disabled]="dialogeForm.invalid">Save</button>
           </form>
-
         </div>
       </ng-template>
 
@@ -95,19 +94,6 @@
         </div>
       </ng-template>
 
-      <!--Compare dialoge box-->
-      <ng-template #templateCompare>
-        <!-- <div>
-          <h1>
-            Delete note
-          </h1>
-          <p>Are you sure want to delete this note?</p><br>
-          <hr>
-          <button mat-raised-button color="primary" mat-dialog-close>cancel</button>
-          <button mat-raised-button color="accent" mat-dialog-close class="noteSave"
-            (click)="deleteNote()">Delete</button>
-        </div> -->
-      </ng-template>
 
       <!--Dialoge box-->
 
@@ -164,13 +150,17 @@
             </mat-select>
           </mat-form-field> &nbsp;
           <mat-icon style="height: 80px;">filter_list</mat-icon>
-          <button mat-raised-button class="compare" (click)="dialogeBoxCompare(templateCompare)">Compare</button>
+          <button mat-raised-button class="compare" [matBadgeHidden] = "compareArray.length == 0" matBadge={{compareArray.length}} matBadgePosition="after" matBadgeColor="primary"
+          (click)="openDialogCompare()">
+          Compare
+          </button>
+        
         </div>
 
         <div class="images" fxFlex="100">
           <div>
             <div class="image" *ngFor="let i of listA.images; let j=index">
-              <img src="assets\images\{{i.URI}}">
+              <img src="assets\images\{{i.URI}}" [ngClass]="{'changestyle':imageStyle(i.image_hash)}" (click)="compareImage(i)">
               <div fxFlex="50" fxLayout="column" fxLayoutAlign="space-around center">
                 <img [src]="getImgSrc(i.image_cat)" />
                 {{
@@ -192,7 +182,6 @@
           </div>
         </div>
       </div>
-
     </div>
     <hr>
 
@@ -231,7 +220,7 @@
         <div class="images">
           <div>
             <div class="image" *ngFor="let i of listB.images;let j=index">
-              <img src="assets\images\{{i.URI}}">
+                <img src="assets\images\{{i.URI}}" [ngClass]="{'changestyle':imageStyle(i.image_hash)}" (click)="compareImage(i)" >
               <div fxFlex="50" fxLayout="column" fxLayoutAlign="space-around center">
                 <img [src]="getImgSrc(i.image_cat)" />
                 {{
@@ -290,7 +279,7 @@
         <div class="images" fxFlex.xs="15">
           <div>
             <div class="image" *ngFor="let i of listC.images;let j=index">
-              <img src="assets\images\{{i.URI}}">
+              <img src="assets\images\{{i.URI}}" [ngClass]="{'changestyle':imageStyle(i.image_hash)}" (click)="compareImage(i)" >
               <div fxFlex="50" fxLayout="column" fxLayoutAlign="space-around center">
                 <img [src]="getImgSrc(i.image_cat)" />
                 {{
