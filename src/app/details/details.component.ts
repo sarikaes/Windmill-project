@@ -1,4 +1,4 @@
-import { Component, OnInit} from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { WindmillService } from '../service/windmill.service';
 import { Note, Wtgs } from '../models/wtgs.model';
 import { ActivatedRoute } from '@angular/router';
@@ -20,7 +20,7 @@ import { CompareImageComponent } from '../compare-image/compare-image.component'
 })
 
 export class DetailsComponent implements OnInit {
-  
+
   isHandset$: Observable<boolean> = this.breakpointObserver.observe(Breakpoints.Handset)
     .pipe(
       map(result => result.matches),
@@ -36,7 +36,7 @@ export class DetailsComponent implements OnInit {
 
   data: any = []
   loadArray: any = []
-  ele:any;
+  ele: any;
   listA: any;
   listB: any;
   listC: any;
@@ -55,6 +55,7 @@ export class DetailsComponent implements OnInit {
   check: boolean = false;
   compareArray: any[] = [];
   imageHash: string = "";
+  bladeDetails:any[]=[]
 
   dialogeForm = new FormGroup({
     note: new FormControl('', Validators.required)
@@ -124,15 +125,19 @@ export class DetailsComponent implements OnInit {
     });
   }
 
-  openDialogCompare() {
+  dialogBoxCompare() {
     const dialogRef = this.dialog.open(CompareImageComponent, {
       width: '1000px',
       height: '450px',
-      data: this.compareArray
+      data: {imageDetails:this.compareArray,
+              listA:this.listA,
+              listB:this.listB,
+              listC:this.listC},
     });
 
     dialogRef.afterClosed().subscribe(result => {
       console.log('The dialog was closed');
+      this.compareArray=[];
     });
   }
 
@@ -141,8 +146,6 @@ export class DetailsComponent implements OnInit {
       if (this.data.id == element.wtg_id) {
         JSON.stringify(this.loadArray.push(element))
       }
-      
-      
     })
     this.inspectionDataList.forEach((ele) => {
       if (this.data.id == ele.blade_id.slice(0, 4) && this.data.date == ele.inspection_date.slice(0, 10)) {
@@ -162,7 +165,7 @@ export class DetailsComponent implements OnInit {
       }
     })
   }
-  
+
   getImgSrc(imageCat: any): string {
     let imageSrc = '../../assets/images/blade-';
     const cat = imageCat.validated ?? imageCat.auto;
@@ -230,7 +233,7 @@ export class DetailsComponent implements OnInit {
     }
   }
 
-  compareImage(image:Image) {
+  compareImage(image: Image) {
     //check add/remove-check if item in list
     //while adding max 3
     const imageIndex = this.compareArray.findIndex((item) => {
@@ -243,13 +246,13 @@ export class DetailsComponent implements OnInit {
       }
     } else {
       //remove
-
       this.compareArray.splice(imageIndex, 1)
     }
+    // console.log(imageIndex)
   }
 
-  imageStyle(imagehash:string): boolean {
-     const check=this.compareArray.some((item) => {
+  imageStyle(imagehash: string): boolean {
+    const check = this.compareArray.some((item) => {
       return item.image_hash === imagehash
     })
     return check

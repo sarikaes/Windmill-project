@@ -1,28 +1,25 @@
-<div>
-    <mat-icon mat-dialog-close class="close">close</mat-icon>
-    <div class="filterList">
-        <form>
-            <mat-label>filterId</mat-label>
-
-        <button class="button" mat-raised-button disabled>Add Image To Compare</button>
-    </form>
-    </div>
+<div class="filterList">
+  <mat-icon mat-dialog-close class="close">close</mat-icon>
+  
+  <hr>
 </div>
-<hr>
 
 <div class="compareImage" *ngFor="let i of compareImage">
-    <div>
-        <div class="image" fxFlex="60" fxLayout="column">
-            <img src="assets\images\{{i.URI}}">
-            <div class="imgDetails" fxFlex="25" fxLayout="column">
-                <img [src]="getImgSrc(i.image_cat)" class="catImage" />
-                {{
-                "cat. " +
-                (i.image_cat.validated != null
-                ? i.image_cat.validated
-                : i.image_cat.auto)
-                }}
-            </div>
-        </div>
+  <div class="image" fxFlex="60" fxLayout="column">
+    <div class="blade">
+      {{"Blade"+bladeid+"-"}}
+      {{"Image"+index}}
+      <mat-icon class="imgclose" color="accent" (click)="compareImage.splice(i,1)">close</mat-icon>
     </div>
+    <img src="assets\images\{{i.URI}}">
+    <div class="imgDetails" fxFlex="20" fxLayout="column">
+      <img [src]="getImgSrc(i.image_cat)" class="catImage" />
+      {{
+      "cat. " +
+      (i.image_cat.validated != null
+      ? i.image_cat.validated
+      : i.image_cat.auto)
+      }}
+    </div>
+  </div>
 </div>

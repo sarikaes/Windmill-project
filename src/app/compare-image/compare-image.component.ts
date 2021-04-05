@@ -1,9 +1,8 @@
 import { Component, Inject, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
-import { MatDialog, MAT_DIALOG_DATA, MatDialogRef, MatDialogContent } from '@angular/material/dialog';
-import { Inspection } from '../models/inspection.model';
+import { MatDialog, MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
+import {  Inspection } from '../models/inspection.model';
 import { WindmillService } from '../service/windmill.service';
-import { Wtgs } from '../models/wtgs.model';
+import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { CatColors } from '../catColors';
 
 @Component({
@@ -12,27 +11,56 @@ import { CatColors } from '../catColors';
   styleUrls: ['./compare-image.component.scss']
 })
 export class CompareImageComponent implements OnInit {
-  constructor(private router: Router,
-    public dialogRef: MatDialogRef<CompareImageComponent>,
+  constructor(public dialogRef: MatDialogRef<CompareImageComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any,
     public dialog: MatDialog,
     private windmillService: WindmillService,
   ) {
+    
   }
-  compareImage:any[]=this.data;
+  
+  compareImage: any[] = this.data.imageDetails;
+
+  listA:any=this.data.listA;
+  listB:any=this.data.listB;
+  listC:any=this.data.listC;
+  bladeid:string="";
+  index:number=1;
 
   ngOnInit(): void {
-    console.log(this.compareImage)
+    
+    this.compareImage.forEach(item=>{
+      this.listA.images.forEach((element:any) => {
+        if(element.image_hash === item.image_hash){
+          this.bladeid="A"
+          this.index = this.listA.images.map(function (img:any) { return img.image_hash; }).indexOf(item.image_hash);
+          
+        }
+
+      });
+      this.listB.images.forEach((element:any) => {
+        if(element.image_hash === item.image_hash){
+          this.bladeid= "B"
+          this.index = this.listB.images.map(function (img:any) { return img.image_hash; }).indexOf(item.image_hash);
+
+        }
+      });
+      this.listC.images.forEach((element:any) => {
+        if(element.image_hash === item.image_hash){
+          this.bladeid= "C"
+          this.index = this.listC.images.map(function (img:any) { return img.image_hash; }).indexOf(item.image_hash);
+
+        }
+      });
+    })
+    console.log(this.bladeid)
+    console.log(this.index)
   }
-  
-  
-  rowDataList: Wtgs[] = JSON.parse(
-    JSON.stringify(this.windmillService.wtgsList)
-  );
 
   inspectionDataList: Inspection[] = JSON.parse(
     JSON.stringify(this.windmillService.inspectionList)
   );
+ 
   getImgSrc(imageCat: any): string {
     let imageSrc = '../../assets/images/blade-';
     const cat = imageCat.validated ?? imageCat.auto;
@@ -42,5 +70,4 @@ export class CompareImageComponent implements OnInit {
     imageSrc += isValidated ? '-filled.png' : '-unfilled.png';
     return imageSrc;
   }
-
 }

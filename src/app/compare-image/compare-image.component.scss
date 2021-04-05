@@ -1,24 +1,35 @@
 .close{
     margin-left:900px;
 }
+.dates{
+    height: 30px;
+    width: 200px;
+}
+.blades{
+    height: 30px;
+    width: 70px;
+    margin-left:20px;
+}
+.images{
+    height: 30px;
+    width: 100px;
+    margin-left:20px;
 
-.filterList{
-    padding-top:25px;
 }
 .button{
     height: 30px;
-    width: 350px;
-    margin-left:600px;   
+    width: 200px;
+    margin-left:60px;
 }
 .hr{
     display: block;
     border-top: 1px solid white;
 }
 img{
-    height: 300px;
+    height: 250px;
     width: 300px;
     display: table;
-    padding:5px;
+    margin:4px;
     border-radius: 6px;
 }
 .compareImage{
@@ -31,7 +42,10 @@ img{
     height: 10px;
     width:30px;  
 }
+.blade{
+margin-left:50px;
+}
+
 mat-icon{
     cursor: pointer;
-    
 }
