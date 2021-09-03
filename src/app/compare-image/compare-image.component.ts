@@ -34,7 +34,6 @@ export class CompareImageComponent implements OnInit {
         if(element.image_hash === item.image_hash){
           this.bladeid="A"
           this.index = this.listA.images.map(function (img:any) { return img.image_hash; }).indexOf(item.image_hash);
-          
         }
 
       });

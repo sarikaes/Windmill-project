@@ -103,7 +103,17 @@
         {{i.wtg_id}}
         <div class="label">
           {{i.blades[0].label}}
-        </div><br><br>
+        </div><br>
+        <div style="
+                width: 150px;
+                height: 50px;
+                padding-top: 15px;
+                padding-left: 5px;
+              ">
+          <app-category [category]="i.blades[0].blade_cat" [bladeLabel]="listA.blade_id" [isBlade]="true"
+            (turbineEvent)="setTurbineImg($event)">
+          </app-category>
+        </div><br>
         <div class="blades">
           S/N :- &nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp;
           &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;{{i.blades[0].serial_number}} <br>
@@ -119,7 +129,8 @@
 
         <div class="notes">
           <div fxLayout="row" fxLayoutAlign="start center">
-            <img src="assets\images\notes.png" (click)="bladeClick(listA.notes,listA.blade_id.slice(5,6))">
+            <img src="assets\images\notes.png" (click)="bladeClick(listA.notes,listA.blade_id.slice(5,6))" #tooltip="matTooltip"
+            matTooltip="Add Notes" [matTooltipPosition]="position.value">
             {{listA.notes?.length}}
             <div class="bladenote">
               Add Note
@@ -127,7 +138,6 @@
           </div>
         </div>
       </div>
-
       <div class="bladeImages" fxFlex="100" fxLayout="column">
         <div class="filter">
           <mat-form-field appearance="fill">
@@ -150,27 +160,26 @@
             </mat-select>
           </mat-form-field> &nbsp;
           <mat-icon style="height: 80px;">filter_list</mat-icon>
-          <button mat-raised-button class="compare" [matBadgeHidden] = "compareArray.length == 0" matBadge={{compareArray.length}} matBadgePosition="after" matBadgeColor="primary"
-           (click)="dialogBoxCompare()">
-          Compare
+          <button mat-raised-button class="compare" [matBadgeHidden]="compareArray.length == 0"
+            matBadge={{compareArray.length}} matBadgePosition="after" matBadgeColor="primary" #tooltip="matTooltip"
+            matTooltip="Add image to compare" [matTooltipPosition]="position.value" (click)="dialogBoxCompare()">
+            Compare
           </button>
-        
+
         </div>
 
         <div class="images" fxFlex="100">
           <div>
             <div class="image" *ngFor="let i of listA.images; let j=index">
-              <img src="assets\images\{{i.URI}}" [ngClass]="{'changestyle':imageStyle(i.image_hash)}" (click)="compareImage(i)">
+              <img src="assets\images\{{i.URI}}" [ngClass]="{'changestyle':imageStyle(i.image_hash)}"
+                (click)="compareImage(i)">
               <div fxFlex="50" fxLayout="column" fxLayoutAlign="space-around center">
-                <img [src]="getImgSrc(i.image_cat)" />
-                {{
-                "cat. " +
-                (i.image_cat.validated != null
-                ? i.image_cat.validated
-                : i.image_cat.auto)
-                }}
+                <app-category [category]="i.image_cat" [bladeLabel]="listA.blade_id" [isChange]="isChange"
+                  (catEvent)="bladeImgSet($event)"></app-category>
+
                 <div fxLayout="row" fxLayoutAlign="start center">
-                  <img style="width: 50px;margin-left: 10px;" src="assets\images\notes.png" (click)="imageClick(
+                  <img style="width: 50px;margin-left: 10px;" src="assets\images\notes.png" #tooltip="matTooltip"
+                    matTooltip="Add Notes" (click)="imageClick(
                   listA.inspection_date.slice(0,10),listA.blade_id,j,i.notes
                 )">
                   <div class="notelength">
@@ -191,7 +200,18 @@
       <div class="bladeDetails" fxFlex="25%" fxLayout="column" *ngFor="let i of loadArray">
         <div class="label">
           {{i.blades[1].label}}
-        </div><br><br>
+        </div><br>
+        <div style="
+                width: 150px;
+                height: 50px;
+                padding-top: 15px;
+                padding-left: 5px;
+              ">
+          <app-category [category]="i.blades[1].blade_cat" [bladeLabel]="listB.blade_id" [isBlade]="true"
+            (turbineEvent)="setTurbineImg($event)">
+          </app-category>
+        </div><br>
+
         <div class="blades">
           S/N :- &nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp;
           &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;{{i.blades[1].serial_number}} <br>
@@ -204,7 +224,6 @@
           Farm:{{i.farm}} <br>
           WTG Model:{{i.wtg_model}}
         </div><br>
-
         <div class="notes">
           <div fxLayout="row" fxLayoutAlign="start center">
             <img src="assets\images\notes.png" (click)="bladeClick(listB.notes,listB.blade_id.slice(5,6))">
@@ -220,15 +239,11 @@
         <div class="images">
           <div>
             <div class="image" *ngFor="let i of listB.images;let j=index">
-                <img src="assets\images\{{i.URI}}" [ngClass]="{'changestyle':imageStyle(i.image_hash)}" (click)="compareImage(i)" >
+              <img src="assets\images\{{i.URI}}" [ngClass]="{'changestyle':imageStyle(i.image_hash)}"
+                (click)="compareImage(i)">
               <div fxFlex="50" fxLayout="column" fxLayoutAlign="space-around center">
-                <img [src]="getImgSrc(i.image_cat)" />
-                {{
-                "cat. " +
-                (i.image_cat.validated != null
-                ? i.image_cat.validated
-                : i.image_cat.auto)
-                }}
+                <app-category [category]="i.image_cat" [bladeLabel]="listB.blade_id" [isChange]="isChange"
+                  (catEvent)="bladeImgSet($event)"></app-category>
                 <div fxLayout="row" fxLayoutAlign="start center">
                   <img style="width: 50px;margin-left: 10px;" src="assets\images\notes.png" (click)="imageClick(
                   listB.inspection_date.slice(0,10),listB.blade_id,j,i.notes
@@ -251,7 +266,18 @@
       <div class="bladeDetails" fxFlex="25%" fxLayout="column" *ngFor="let i of loadArray">
         <div class="label">
           {{i.blades[2].label}}
-        </div><br><br>
+        </div><br>
+        <div style="
+                width: 150px;
+                height: 50px;
+                padding-top: 15px;
+                padding-left: 4px;
+              ">
+          <app-category [category]="i.blades[2].blade_cat" [bladeLabel]="listC.blade_id" [isBlade]="true"
+            (turbineEvent)="setTurbineImg($event)">
+          </app-category>
+
+        </div><br>
         <div class="blades">
           S/N :- &nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp;
           &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;{{i.blades[2].serial_number}} <br>
@@ -264,30 +290,26 @@
           Farm:{{i.farm}} <br>
           WTG Model:{{i.wtg_model}}
         </div><br>
-        <div class="notes">
-          <div fxLayout="row" fxLayoutAlign="start center">
-            <img src="assets\images\notes.png" (click)="bladeClick(listC.notes,listC.blade_id.slice(5,6))">
-            {{listC.notes?.length}}
-            <div class="bladenote">
-              Add Note
-            </div>
+      <div class="notes">
+        <div fxLayout="row" fxLayoutAlign="start center">
+          <img src="assets\images\notes.png" (click)="bladeClick(listC.notes,listC.blade_id.slice(5,6))">
+          {{listC.notes?.length}}
+          <div class="bladenote">
+            Add Note
           </div>
         </div>
       </div>
+    </div>
 
-      <div class="bladeImages" fxFlex="100" fxLayout="column">
+    <div class="bladeImages" fxFlex="100" fxLayout="column">
         <div class="images" fxFlex.xs="15">
           <div>
             <div class="image" *ngFor="let i of listC.images;let j=index">
-              <img src="assets\images\{{i.URI}}" [ngClass]="{'changestyle':imageStyle(i.image_hash)}" (click)="compareImage(i)" >
+              <img src="assets\images\{{i.URI}}" [ngClass]="{'changestyle':imageStyle(i.image_hash)}"
+                (click)="compareImage(i)">
               <div fxFlex="50" fxLayout="column" fxLayoutAlign="space-around center">
-                <img [src]="getImgSrc(i.image_cat)" />
-                {{
-                "cat. " +
-                (i.image_cat.validated != null
-                ? i.image_cat.validated
-                : i.image_cat.auto)
-                }}
+                <app-category [category]="i.image_cat" [bladeLabel]="listC.blade_id" [isChange]="isChange"
+                  (catEvent)="bladeImgSet($event)"></app-category>
                 <div fxLayout="row" fxLayoutAlign="start center">
                   <img style="width: 50px;margin-left: 10px;" src="assets\images\notes.png" (click)="imageClick(
                   listC.inspection_date.slice(0,10),listC.blade_id,j,i.notes
@@ -302,6 +324,5 @@
         </div>
       </div>
     </div>
-
   </mat-sidenav-content>
 </mat-sidenav-container>

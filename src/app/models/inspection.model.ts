@@ -18,5 +18,5 @@ export interface Image {
 }
 export interface Category {
     auto: number;
-    validated: number;
+    validated: number|null;
 }

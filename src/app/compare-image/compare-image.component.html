@@ -4,12 +4,12 @@
   <hr>
 </div>
 
-<div class="compareImage" *ngFor="let i of compareImage">
+<div class="compareImage" *ngFor="let i of compareImage;let j=index">
   <div class="image" fxFlex="60" fxLayout="column">
     <div class="blade">
       {{"Blade"+bladeid+"-"}}
       {{"Image"+index}}
-      <mat-icon class="imgclose" color="accent" (click)="compareImage.splice(i,1)">close</mat-icon>
+      <mat-icon class="imgclose" color="accent" (click)="compareImage.splice(j,1)">close</mat-icon>
     </div>
     <img src="assets\images\{{i.URI}}">
     <div class="imgDetails" fxFlex="20" fxLayout="column">

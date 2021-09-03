@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Output,EventEmitter } from '@angular/core';
 import { WindmillService } from '../service/windmill.service';
 import { Note, Wtgs } from '../models/wtgs.model';
 import { ActivatedRoute } from '@angular/router';
@@ -12,6 +12,8 @@ import { map, shareReplay } from 'rxjs/operators';
 import { MatDialog } from '@angular/material/dialog';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { CompareImageComponent } from '../compare-image/compare-image.component';
+import {TooltipPosition} from '@angular/material/tooltip';
+
 
 @Component({
   selector: 'app-details',
@@ -33,7 +35,7 @@ export class DetailsComponent implements OnInit {
     private activatedRoute: ActivatedRoute,
     private router: Router
   ) { }
-
+  @Output() turbineEvent =new EventEmitter();
   data: any = []
   loadArray: any = []
   ele: any;
@@ -55,12 +57,15 @@ export class DetailsComponent implements OnInit {
   check: boolean = false;
   compareArray: any[] = [];
   imageHash: string = "";
-  bladeDetails:any[]=[]
+  bladeDetails:any[]=[];
+  isChange:boolean=false;
+
 
   dialogeForm = new FormGroup({
     note: new FormControl('', Validators.required)
   })
-
+  positionOptions: TooltipPosition[] = ['below', 'above', 'left', 'right'];
+  position = new FormControl(this.positionOptions[0]);
   ngOnInit(): void {
     this.activatedRoute.params.subscribe((params) => {
       this.data = params
@@ -230,6 +235,49 @@ export class DetailsComponent implements OnInit {
   deleteNote() {
     if (this.index > -1) {
       this.notes.splice(this.index, 1)
+    }
+  }
+  bladeImgSet(data: any) {
+    const bladeKey = 'blade' + data.bladeType;
+
+    let bladeCat: number =
+      this[bladeKey as keyof DetailsComponent].images[0].image_cat
+        .validated ??
+      this[bladeKey as keyof DetailsComponent].images[0].image_cat.auto;
+
+    this[bladeKey as keyof DetailsComponent].images.forEach(
+      (element: any) => {
+        const cat = element.image_cat.validated ?? element.image_cat.auto;
+        if (cat > bladeCat) {
+          bladeCat = cat;
+        }
+      }
+    );
+    this[bladeKey as keyof DetailsComponent].blade_cat.auto = bladeCat;
+    this.isChange = !this.isChange;
+  }
+
+  // setting turbine category
+
+  setTurbineImg(bladeData: any) {
+    let maxDate = this.wtg_dateList.reduce(function (a, b) {
+      return a > b ? a : b;
+    });
+    if (maxDate == this.data.date) {
+      this.rowDataList.forEach((el) => {
+        if (el.wtg_id == bladeData.bladeId) {
+          let turbineCat =
+            el.blades[0].blade_cat.validated ?? el.blades[0].blade_cat.auto;
+          el.blades.forEach((item: any) => {
+            const turCat = item.blade_cat.validated ?? item.blade_cat.auto;
+            if (turCat > turbineCat) {
+              turbineCat = turCat;
+            }
+          });
+          el.WTG_cat.auto = turbineCat;
+          console.log(turbineCat);
+        }
+      });
     }
   }
 

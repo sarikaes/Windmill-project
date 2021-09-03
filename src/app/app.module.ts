@@ -20,7 +20,9 @@ import {MatCardModule} from '@angular/material/card';
 import {MatGridListModule} from '@angular/material/grid-list';
 import {MatDialogModule} from '@angular/material/dialog';
 import {MatBadgeModule} from '@angular/material/badge';
+import {MatTooltipModule} from '@angular/material/tooltip';
 import { HttpClientModule } from '@angular/common/http';
+import { CategoryComponent } from './category/category.component';
 
 @NgModule({
   declarations: [
@@ -28,6 +30,7 @@ import { HttpClientModule } from '@angular/common/http';
     TableComponent,
     DetailsComponent,
     CompareImageComponent,
+    CategoryComponent,
   ],
   imports: [
     BrowserModule,
@@ -46,6 +49,7 @@ import { HttpClientModule } from '@angular/common/http';
     MatGridListModule,
     MatDialogModule,
     MatBadgeModule,
+    MatTooltipModule,
     ReactiveFormsModule,
     FormsModule,
     HttpClientModule,

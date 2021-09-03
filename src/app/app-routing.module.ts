@@ -6,7 +6,7 @@ import {CompareImageComponent} from './compare-image/compare-image.component';
 
 
 const routes: Routes = [{ path: '', component: TableComponent, pathMatch: "full" }, { path: 'table', component: TableComponent },
-{ path: "details/:id/:date", component: DetailsComponent },{ path: "**", component: DetailsComponent }];
+{ path: "details/:id/:date", component: DetailsComponent },{ path: "**", component: DetailsComponent }]; 
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],

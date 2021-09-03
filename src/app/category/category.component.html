@@ -1,0 +1,57 @@
+<div fxLayout="row" fxLayoutAlign="space-between center">
+    <img
+      [src]="getImgSrc(category,isChange) "
+      class="catColor"
+      id="myImageID"
+      (click)="OnCatClick()"
+    />
+  
+    <div *ngIf="isClicked" style="margin-left: 15px">
+      <div fxLayout="column" fxLayoutAlign="start start">
+        <div fxLayout="row" fxLayoutAlign="space-between center">
+          <img
+            src="../../assets/images/category-azure-filled.png"
+            class="catColorAlign"
+            (click)="catColorClick(bladeLabel, 1)"
+          />
+          <img
+            src="../../assets/images/category-green-filled.png"
+            class="catColorAlign"
+            (click)="catColorClick(bladeLabel, 2)"
+          />
+          <img
+            src="../../assets/images/category-yellow-filled.png"
+            class="catColorAlign"
+            (click)="catColorClick(bladeLabel, 3)"
+          />
+        </div>
+        <div
+          fxLayout="row"
+          fxLayoutAlign="space-between center"
+          style="padding-top: 3px"
+        >
+          <img
+            src="../../assets/images/category-orange-filled.png"
+            class="catColorAlign"
+            (click)="catColorClick(bladeLabel, 4)"
+          />
+          <img
+            src="../../assets/images/category-red-filled.png"
+            class="catColorAlign"
+            (click)="catColorClick(bladeLabel, 5)"
+          />
+  
+          <img
+            [src]="getImgSrcCat(category)"
+            class="catColorAlign"
+            (click)="resetCat(category)"
+          />
+        </div>
+      </div>
+    </div>
+  </div>
+  <div>
+    {{
+      "cat. " + (category.validated != null ? category.validated : category.auto)
+    }}
+  </div>
